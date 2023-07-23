@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/add05b7e25.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/alert.message.css" />
+    <title>URL Shortener</title>
+  </head>
+  <body>
+    <header>
+      <h1>URL Shortener</h1>
+    </header>
+
+    <main>
+      <form id="urlForm">
+        <label for="longUrl">URL:</label>
+        <input type="text" id="longUrl" name="longUrl" required />
+
+        <label for="Length">Length (Optional):</label>
+        <input type="text" id="Length" name="Length" />
+
+        <label for="alias">Alias (Optional):</label>
+        <input type="text" id="alias" name="alias" />
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <div id="shortUrlContainer">
+        <p>Short URL:</p>
+        <div id="shortUrlDiv">
+          <div id="shortUrl"></div>
+          <button id="copyButton">
+            <i class="fas fa-copy"> Copy</i>
+          </button>
+        </div>
+
+        <div class="dropdown-container">
+          <div>
+            <button id="shareButton" class="dropdown-button">
+              Share <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="dropdown-menu" id="menu">
+              <button id="whatsappButton">
+                WhatsApp <i class="fab fa-whatsapp"></i>
+              </button>
+              <button id="facebookButton">
+                Facebook <i class="fab fa-facebook"></i>
+              </button>
+              <button id="linkedinButton">
+                LinkedIn <i class="fab fa-linkedin"></i>
+              </button>
+            </div>
+          </div>
+          <button id="reloadbtn">Shorten Another</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+<script type="module" src="/src/scrypt.js"></script>
