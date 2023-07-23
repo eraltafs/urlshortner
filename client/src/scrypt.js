@@ -33,13 +33,16 @@ form.addEventListener("submit", async (event) => {
   });
 
   const data = await response.json();
+  console.log(data.msg);
   let short_url;
 
   if (response.ok) {
     short_url = data.short_url;
     alertMsg("Short URL created successfully: ", "success");
   } else {
-    alertMsg("Error creating short URL:", "fail");
+    if (data.msg == "Alias already in use") {
+      alertMsg("Alias already in use:", "error");
+    } else alertMsg("Error creating short URL:", "fail");
   }
 
   // Display the short URL and show the container
@@ -51,7 +54,7 @@ copyButton.addEventListener("click", () => {
   const textToCopy = shortUrl.innerText;
   navigator.clipboard
     .writeText(textToCopy)
-    .then(() => alertMsg("URL copied to clipboard","success"))
+    .then(() => alertMsg("URL copied to clipboard", "success"))
     .catch((err) => console.error("Failed to copy: ", err));
 });
 
