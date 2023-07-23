@@ -83,7 +83,7 @@ The server will start running on the specified port.
     * Response:
       redirected if shorturl find
 
-## change api index.js in cliet
+## change api index.js in client
 - let api = "https://<your_api>.com";
 
 <h2 align="center">Frontend<h2>
