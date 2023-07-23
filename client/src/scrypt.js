@@ -1,6 +1,8 @@
 import { alertMsg } from "./alert.message.js";
 let api = "https://url-6huw.onrender.com";
 const form = document.getElementById("urlForm");
+const submitButton = document.getElementById("submitButton");
+const loader = document.getElementById("loader");
 const shortUrlContainer = document.getElementById("shortUrlContainer");
 const copyButton = document.getElementById("copyButton");
 const whatsappButton = document.getElementById("whatsappButton");
@@ -11,6 +13,11 @@ const reloadbtn = document.getElementById("reloadbtn");
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  submitButton.innerHTML = `<span id="spinner" class="spinner"></span>`;
+  const spinner = document.getElementById("spinner");
+  submitButton.disabled = true; // Disable the button
+  spinner.style.display = "block"; // Show the spinner
 
   const longUrlInput = document.getElementById("longUrl");
   const lengthInput = document.getElementById("Length");
@@ -34,20 +41,21 @@ form.addEventListener("submit", async (event) => {
 
   const data = await response.json();
   console.log(data.msg);
+  submitButton.disabled = false; // Re-enable the button
+  spinner.style.display = `none`;
+  submitButton.innerHTML= 'Submit'
   let short_url;
 
   if (response.ok) {
     short_url = data.short_url;
     alertMsg("Short URL created successfully: ", "success");
+    shortUrl.innerText = `${api}/${short_url}`;
+    shortUrlContainer.style.display = "block";
   } else {
     if (data.msg == "Alias already in use") {
       alertMsg("Alias already in use:", "error");
     } else alertMsg("Error creating short URL:", "fail");
   }
-
-  // Display the short URL and show the container
-  shortUrl.innerText = `${api}/${short_url}`;
-  shortUrlContainer.style.display = "block";
 });
 
 copyButton.addEventListener("click", () => {

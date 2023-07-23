@@ -4,18 +4,26 @@ body {
   padding: 0;
   overflow-x: hidden;
   box-sizing: border-box;
+  color: white;
+  background-color: rgb(40,56,74);
 }
 
 
 header {
-  background-color: #333;
+  width: 80%;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #85f5ff;
   color: #fff;
   text-align: center;
   padding: 1rem;
+  box-shadow: rgba(202, 202, 202, 0.35) 0px 5px 15px;
 }
 
 h1 {
   margin: 0;
+  width: 80%;
+  margin: auto;
 }
 
 main {
@@ -32,6 +40,7 @@ form {
   border: 1px solid #ccc;
   padding: 15px;
   border-radius: 10px;
+  box-shadow: rgba(202, 202, 202, 0.35) 0px 5px 15px;
 }
 
 label {
@@ -45,20 +54,35 @@ input {
   border-radius: 10px;
 
 }
+button[type="submit"]{
+  background-color: green;
+  width: 50%;
+  margin: auto;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+button[type="submit"]:hover{
+  background-color: rgb(0, 0, 175);
+}
 
 button {
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 6px 10px;
   font-size: 16px;
-  background-color: #333;
+  background-color: green;
   color: #ffffff;
   border: none;
   cursor: pointer;
   border-radius: 10px;
+  box-shadow: rgba(202, 202, 202, 0.35) 0px 5px 15px;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: rgb(0, 0, 75);
+}
+button:active{
+  padding: 4px 8px;
 }
 
 #shortUrlContainer {
@@ -71,7 +95,7 @@ button:hover {
   padding: 1rem;
   height: 220px;
   border-radius: 10px;
-
+  box-shadow: rgba(202, 202, 202, 0.35) 0px 5px 15px;
 }
 
 #shortUrlDiv {
@@ -81,6 +105,7 @@ button:hover {
   word-wrap: break-word;
   font-size: 16px;
   background-color: #f9f9f9;
+  color: rgb(21, 0, 255);
   padding: 0.5rem;
   border: 1px solid #ddd;
   margin-bottom: 1rem;
@@ -96,10 +121,16 @@ button:hover {
 #copyButton {
   margin: 0px;
   padding: 2px 5px;
-  border-radius: 3px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: rgb(90, 239, 90);
 }
-
+#copyButton:hover{
+  background-color: rgb(0, 96, 0);
+}
+#copyButton:active{
+  padding: 1px 4px;
+}
 .dropdown-container {
   position: relative;
   display: flex;
@@ -108,21 +139,26 @@ button:hover {
 }
 
 .dropdown-button {
-  padding: 0.5rem 1rem;
+  padding: 6px 10px;
   font-size: 16px;
-  background-color: #333;
+  background-color: rgb(0, 0, 128);
   color: #fff;
   border: none;
   cursor: pointer;
 }
-
+.dropdown-button:hover{
+  background-color: green;
+}
+.dropdown-button:active{
+  padding: 4px 8px;
+}
 .dropdown-menu {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #f9f9f9;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  background-color: rgb(40,56,74);
+  box-shadow: rgba(202, 202, 202, 0.35) 0px 5px 15px;
   list-style: none;
   margin: 0;
   margin-top: 3px;
@@ -139,10 +175,22 @@ button:hover {
   font-weight: bold;
   border-bottom: 1px solid #ccc;
 }
-
-.dropdown-menu button:last-child {
-  border-bottom: none;
+.spinner {
+  border: 4px solid gray;
+  border-top: 4px solid #0066EE;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 0.65s linear infinite;
+  margin:auto;
+  display: none; /* Initially hide the spinner */
 }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 @media screen and (max-width: 460px) {
     .dropdown-menu{
         flex-direction: column;

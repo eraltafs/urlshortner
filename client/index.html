@@ -12,11 +12,11 @@
     <title>URL Shortener</title>
   </head>
   <body>
-    <header>
-      <h1>URL Shortener</h1>
-    </header>
-
+    
     <main>
+      <header>
+        <h1>Free URL Shortener</h1>
+      </header>
       <form id="urlForm">
         <label for="longUrl">URL:</label>
         <input type="text" id="longUrl" name="longUrl" required />
@@ -27,7 +27,8 @@
         <label for="alias">Alias (Optional):</label>
         <input type="text" id="alias" name="alias" />
 
-        <button type="submit">Submit</button>
+        <button type="submit" id="submitButton">Submit</button>
+        
       </form>
 
       <div id="shortUrlContainer">
