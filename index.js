@@ -1,17 +1,15 @@
 const express = require("express");
 const cors = require("cors");
-const EncryptRsa = require('encrypt-rsa').default
+const Cryptr = require('cryptr');
 const random = require("random-string-generator");
-
-
 
 const { connection } = require("./config/db");
 const { urlModel } = require("./models/url.models");
 
 const PORT = process.env.PORT;
 
-const encryptRsa = new EncryptRsa();
-const { privateKey, publicKey } = encryptRsa.createPrivateAndPublicKeys();
+const cryptr = new Cryptr('myTotallySecretKey');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -22,27 +20,35 @@ app.get("/", (req, res) => {
 
 app.post("/shortUrl", async (req, res) => {
   const { url, length, alias } = req.body;
-  const encryptedUrl = encryptRsa.encrypt(url, publicKey);
+  const encryptedUrl = cryptr.encrypt(url)
   let shortenUrl;
   if (alias) {
+    const existingUrl = await urlModel.findOne({ shortenUrl: alias });
+    if (existingUrl) {
+      return res.status(409).send({ msg: "Alias already in use" });
+    }
     shortenUrl = alias;
-    const url_constructor = new urlModel({ url:encryptedUrl, shortenUrl });
+    const url_constructor = new urlModel({ url: encryptedUrl, shortenUrl });
     await url_constructor.save();
     return res.status(201).send({ short_url: shortenUrl });
   } else {
-    if(length){
+    if (length) {
+      shortenUrl = random(length, "lower");
+      const existingUrl = await urlModel.findOne({ shortenUrl: alias });
+      if (existingUrl) {
         shortenUrl = random(length, "lower");
-    }else{
+      }
+    } else {
+      shortenUrl = random(6, "lower");
+      const existingUrl = await urlModel.findOne({ shortenUrl: alias });
+      if (existingUrl) {
         shortenUrl = random(6, "lower");
+      }
     }
-  }
-  let find_shorten = await urlModel.findOne({ shortenUrl });
-  if (find_shorten) {
-    shortenUrl = random(length, "lower");
   }
 
   try {
-    const url_constructor = new urlModel({ url:encryptedUrl, shortenUrl });
+    const url_constructor = new urlModel({ url: encryptedUrl, shortenUrl });
     await url_constructor.save();
     res.status(201).send({ short_url: shortenUrl });
   } catch (error) {
@@ -51,13 +57,14 @@ app.post("/shortUrl", async (req, res) => {
   }
 });
 
-app.get("/redirect", async (req, res) => {
-  const { shortenUrl } = req.query;
+app.get("/:shortenUrl", async (req, res) => {
+  const { shortenUrl } = req.params;
+
   let find_shorten = await urlModel.findOne({ shortenUrl });
-  console.log(find_shorten.url)
+
   if (find_shorten) {
-    const decryptedUrl = encryptRsa.decrypt(find_shorten.url, privateKey);
-    return res.redirect(decryptedUrl)
+    const decryptedUrl = cryptr.decrypt(find_shorten.url);
+    return res.redirect(decryptedUrl);
   } else {
     res.send("no link asociated with this  link please check again");
   }
