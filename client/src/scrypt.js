@@ -33,7 +33,7 @@ form.addEventListener("submit", async (event) => {
     },
     body: JSON.stringify({
       url: longUrl,
-      length: +length,
+      length: length,
       alias: alias,
     }),
   });
