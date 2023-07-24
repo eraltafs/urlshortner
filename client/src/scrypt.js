@@ -2,7 +2,6 @@ import { alertMsg } from "./alert.message.js";
 let api = "https://url-6huw.onrender.com";
 const form = document.getElementById("urlForm");
 const submitButton = document.getElementById("submitButton");
-const loader = document.getElementById("loader");
 const shortUrlContainer = document.getElementById("shortUrlContainer");
 const copyButton = document.getElementById("copyButton");
 const whatsappButton = document.getElementById("whatsappButton");
