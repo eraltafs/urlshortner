@@ -23,9 +23,8 @@ form.addEventListener("submit", async (event) => {
   const aliasInput = document.getElementById("alias");
 
   const longUrl = longUrlInput.value.trim();
-  const length = lengthInput.value.trim();
+  const length = lengthInput.value;
   const alias = aliasInput.value.trim();
-
   const response = await fetch(`${api}/shortUrl`, {
     method: "POST",
     headers: {
@@ -33,7 +32,7 @@ form.addEventListener("submit", async (event) => {
     },
     body: JSON.stringify({
       url: longUrl,
-      length: length,
+      length: +length,
       alias: alias,
     }),
   });
